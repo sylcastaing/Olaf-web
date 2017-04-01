@@ -1,3 +1,5 @@
+declare var require: any;
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -8,8 +10,9 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
 import { MaterialModule } from '@angular/material';
+import { ChartModule } from 'angular2-highcharts';
 
-import { AuthService, HttpService, UserService } from './_services';
+import { AuthService, HttpService, WeatherService, UserService } from './_services';
 
 import { AuthGuard } from './_guards';
 
@@ -30,11 +33,13 @@ import 'hammerjs';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    routing
+    routing,
+    ChartModule.forRoot(require('highcharts'))
   ],
   providers: [
     AuthGuard,
     AuthService,
+    WeatherService,
     UserService,
     HttpService,
     {

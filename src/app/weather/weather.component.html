@@ -1,17 +1,29 @@
-<md-grid-list cols="3" rowHeight="300px">
+<md-grid-list cols="3" rowHeight="16:9" class="olaf-weather-content">
   <md-grid-tile>
-    <md-card>
-
+    <md-card *ngIf="indoorTemp" class="olaf-weather-display">
+      <md-card-title>Intérieur</md-card-title>
+      <div>{{ indoorTemp.label }}</div>
     </md-card>
   </md-grid-tile>
   <md-grid-tile>
-    <md-card>
-
+    <md-card *ngIf="outdoorTemp" class="olaf-weather-display">
+      <md-card-title>Extérieur</md-card-title>
+      <div>{{ outdoorTemp.label }}</div>
     </md-card>
   </md-grid-tile>
   <md-grid-tile>
-    <md-card>
-
+    <md-card *ngIf="outdoorTemp" class="olaf-weather-display">
+      <md-card-title>Pression</md-card-title>
+      <div>{{ pressure.label }}</div>
     </md-card>
   </md-grid-tile>
 </md-grid-list>
+
+ <md-card *ngIf="this.tempChart" class="olaf-chart">
+  <chart [options]="this.tempChart"></chart>
+</md-card>
+
+ <md-card *ngIf="this.pressureChart" class="olaf-chart">
+  <chart [options]="this.pressureChart"></chart>
+</md-card>
+
