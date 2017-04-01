@@ -1,28 +1,20 @@
 <md-toolbar color="primary">
-  <button md-icon-button (click)="sidenav.toggle()" class="menu-button"><md-icon>menu</md-icon></button>
+  <button md-icon-button [hidden]="!isAuthenticated()" class="menu-button" (click)="sidenav.toggle()"><md-icon>menu</md-icon></button>
   <span>Olaf</span>
   <span class="spacer"></span>
-  <button md-icon-button [mdMenuTriggerFor]="menu" txtright>
+  <button md-icon-button [hidden]="!isAuthenticated()" [mdMenuTriggerFor]="menu" txtright>
     <md-icon>more_vert</md-icon>
   </button>
   <md-menu #menu="mdMenu">
-    <button md-menu-item>
-      <md-icon>dialpad</md-icon>
-      <span>Redial</span>
-    </button>
-    <button md-menu-item disabled>
-      <md-icon>voicemail</md-icon>
-      <span>Check voicemail</span>
-    </button>
-    <button md-menu-item>
-      <md-icon>notifications_off</md-icon>
-      <span>Disable alerts</span>
+    <button md-menu-item routerLink="/login">
+      <md-icon>lock</md-icon>
+      <span>Déconnexion</span>
     </button>
   </md-menu>
 </md-toolbar>
 
 <md-sidenav-container class="menu">
-  <md-sidenav #sidenav mode="side" opened="true">
+  <md-sidenav #sidenav mode="side" opened="true" [hidden]="!isAuthenticated()">
     <md-card>
       <button md-menu-item>
         <md-icon>tv</md-icon>
@@ -33,7 +25,7 @@
         <span>Météo</span>
       </button>
     </md-card>
-    <md-card>
+    <md-card [hidden]="!isAdmin()">
       <md-card-subtitle>Administration</md-card-subtitle>
        <button md-menu-item>
         <md-icon>settings_remote</md-icon>
@@ -45,4 +37,5 @@
       </button>
     </md-card>
   </md-sidenav>
+  <router-outlet></router-outlet>
 </md-sidenav-container>

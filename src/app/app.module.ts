@@ -1,23 +1,50 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { XHRBackend, RequestOptions } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { routing } from './app.routing';
 
 import { MaterialModule } from '@angular/material';
 
+import { AuthService, HttpService, UserService } from './_services';
+
+import { AuthGuard } from './_guards';
+
+import { WeatherComponent } from './weather/';
+import { LoginComponent } from './login/';
+
+import 'hammerjs';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WeatherComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
-    MaterialModule
+    ReactiveFormsModule,
+    MaterialModule,
+    routing
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthService,
+    UserService,
+    HttpService,
+    {
+      provide: HttpService,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new HttpService(backend, options);
+      },
+      deps: [XHRBackend, RequestOptions]
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
