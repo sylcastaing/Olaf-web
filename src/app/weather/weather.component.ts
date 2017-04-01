@@ -22,23 +22,42 @@ export class WeatherComponent implements OnInit {
   public tempChart: any;
   public pressureChart: any;
 
+  public tempChartOptions: any;
+  public pressureChartOptions: any;
+
   constructor(public weatherService: WeatherService) {
 
   }
 
   ngOnInit() {
+    this.initCharts();
+
     var todayDate = new Date();
     var yesterdayDate = new Date().setDate(todayDate.getDate() - 1);
 
     this.weatherService.get(yesterdayDate, todayDate.getTime())
       .subscribe(weathers => {
-        console.log(weathers);
-        this.weathers = weathers;
-        this.feedCharts();
+        this.feedCharts(weathers);
         this.indoorTemp = new Weather((weathers.indoorTemps) ? weathers.indoorTemps[0] : {});
         this.outdoorTemp = new Weather((weathers.outdoorTemps) ? weathers.outdoorTemps[0] : {});
         this.pressure = new Weather((weathers.pressures) ? weathers.pressures[0] : {});
-      })
+      });
+
+    this.weatherService.getUpdates('weather')
+      .subscribe(data => {
+        if (data.type === 'indoorTemp') {
+          this.indoorTemp = new Weather(data);
+          this.tempChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
+        }
+        else if (data.type === 'outdoorTemp') {
+          this.outdoorTemp = new Weather(data);
+          this.tempChart.series[1].addPoint([new Date(data.date).getTime(), data.value]);
+        }
+        else if (data.type === 'pressure') {
+          this.pressure = new Weather(data);
+          this.pressureChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
+        }
+      });
     
     const Highcharts = require('highcharts');
     Highcharts.setOptions({
@@ -48,8 +67,30 @@ export class WeatherComponent implements OnInit {
     });
   }
 
-  private feedCharts() {
-    this.tempChart = {
+  saveTempChart(chart) {
+    this.tempChart = chart;
+  }
+
+  savePressureChart(chart) {
+    this.pressureChart = chart;
+  }
+
+  private feedCharts(weathers) {
+    this.tempChart.series[0].setData(weathers.indoorTemps.map(temp => {
+          return [new Date(temp.date).getTime(), temp.value];
+        }))
+
+    this.tempChart.series[1].setData(weathers.outdoorTemps.map(temp => {
+          return [new Date(temp.date).getTime(), temp.value];
+        }))
+
+    this.pressureChart.series[0].setData(weathers.pressures.map(temp => {
+          return [new Date(temp.date).getTime(), temp.value];
+        }))
+  }
+
+  private initCharts() {
+    this.tempChartOptions = {
       chart: {
         type: 'spline'
       },
@@ -74,17 +115,13 @@ export class WeatherComponent implements OnInit {
         }
       },
       series: [{
-        data: this.weathers.indoorTemps.map(temp => {
-          return [new Date(temp.date).getTime(), temp.value];
-        })
+        name: 'Intérieur'
       }, {
-        data: this.weathers.outdoorTemps.map(temp => {
-          return [new Date(temp.date).getTime(), temp.value];
-        })
+        name: 'Extérieur'
       }]
     };
 
-    this.pressureChart = {
+    this.pressureChartOptions = {
       chart: {
         type: 'spline'
       },
@@ -108,9 +145,7 @@ export class WeatherComponent implements OnInit {
         }
       },
       series: [{
-        data: this.weathers.pressures.map(temp => {
-          return [new Date(temp.date).getTime(), temp.value];
-        })
+        name: 'Pression'
       }]
     };
   }

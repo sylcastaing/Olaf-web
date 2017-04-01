@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { HttpService } from './http.service';
 
+import * as io from 'socket.io-client';
+
 /**
  * Custom Service Class
  * 
@@ -19,7 +21,7 @@ export abstract class DatasService {
    * @memberOf UserService
    */
   constructor(public http: HttpService) {
-    
+
   }
 
    /**
@@ -55,5 +57,26 @@ export abstract class DatasService {
     }
 
     return Observable.throw(errMsg);
+  }
+
+  public getUpdates(modelName: String) : Observable<any> {
+    let observable = new Observable(observer => {
+      var socket = this.socket;
+      socket.on(modelName + ':save', (data) => {
+        observer.next(data);
+      });
+      return () => {
+        socket.disconnect();
+      };
+    });
+    
+    return observable;
+  }
+
+  get socket(): any {
+    return io('', {
+      ws: true,
+      query: 'token=' + localStorage.getItem('token')
+    })
   }
 }

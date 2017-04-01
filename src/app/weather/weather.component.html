@@ -19,11 +19,11 @@
   </md-grid-tile>
 </md-grid-list>
 
- <md-card *ngIf="this.tempChart" class="olaf-chart">
-  <chart [options]="this.tempChart"></chart>
+ <md-card *ngIf="this.tempChartOptions" class="olaf-chart">
+  <chart [options]="this.tempChartOptions" (load)="saveTempChart($event.context)"></chart>
 </md-card>
 
- <md-card *ngIf="this.pressureChart" class="olaf-chart">
-  <chart [options]="this.pressureChart"></chart>
+ <md-card *ngIf="this.pressureChartOptions" class="olaf-chart">
+  <chart [options]="this.pressureChartOptions" (load)="savePressureChart($event.context)"></chart>
 </md-card>
 
