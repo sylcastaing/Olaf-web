@@ -1,27 +1,25 @@
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { HttpService } from './http.service';
+import { Injectable } from '@angular/core';
+
+import { Router } from '@angular/router';
 
 import * as io from 'socket.io-client';
 
+import 'rxjs/add/observable/throw'
+
 /**
- * Custom Service Class
+ * DatasService
  * 
  * @export
  * @abstract
- * @class AuthService
+ * @class DatasService
  */
 export abstract class DatasService {
 
-  /**
-   * Creates an instance of UserService.
-   * @param {HttpService} http 
-   * 
-   * @memberOf UserService
-   */
-  constructor(public http: HttpService) {
-
+  constructor() {
+    
   }
 
    /**
@@ -48,15 +46,20 @@ export abstract class DatasService {
    */
   protected handleError (error: Response | any) {
     let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
+
+    if (error._body) {
+      errMsg = error._body;
+    }
+    else {
+      errMsg = error.message;
     }
 
-    return Observable.throw(errMsg);
+    let retour = {
+      status: error.status,
+      message: errMsg
+    }
+
+    return Observable.throw(retour);
   }
 
   public getUpdates(modelName: String) : Observable<any> {

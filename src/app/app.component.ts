@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+import { MdDialog } from '@angular/material';
+
+import { ChangePasswordComponent } from './user/';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +11,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   
-  constructor() {
+  constructor(public dialog: MdDialog) {
 
   }
 
@@ -24,5 +28,9 @@ export class AppComponent {
     }
 
     return isAdmin;
+  }
+
+  changePassword() {
+    this.dialog.open(ChangePasswordComponent);
   }
 }

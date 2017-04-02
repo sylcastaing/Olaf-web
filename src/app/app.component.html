@@ -6,6 +6,10 @@
     <md-icon>more_vert</md-icon>
   </button>
   <md-menu #menu="mdMenu">
+    <button md-menu-item  (click)="changePassword()">
+      <md-icon>vpn_key</md-icon>
+      <span>Changer de mot de passe</span>
+    </button>
     <button md-menu-item routerLink="/login">
       <md-icon>lock</md-icon>
       <span>Déconnexion</span>

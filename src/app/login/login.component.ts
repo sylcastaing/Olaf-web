@@ -64,6 +64,6 @@ export class LoginComponent implements OnInit {
 
     this.snackBar.open(message, 'Fermer', {
       duration: 3000,
-    })
+    });
   }
 }

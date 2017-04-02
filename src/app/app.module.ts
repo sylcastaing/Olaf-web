@@ -1,23 +1,23 @@
-declare var require: any;
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { XHRBackend, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdSnackBar } from '@angular/material';
 import { ChartModule } from 'angular2-highcharts';
 
 import { AuthService, HttpService, WeatherService, UserService } from './_services';
 
 import { AuthGuard } from './_guards';
 
-import { WeatherComponent } from './weather/';
-import { LoginComponent } from './login/';
+import { WeatherComponent } from './weather';
+import { LoginComponent } from './login';
+import { ChangePasswordComponent } from './user';
 
 import 'hammerjs';
 
@@ -25,7 +25,8 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     WeatherComponent,
-    LoginComponent
+    LoginComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -41,15 +42,14 @@ import 'hammerjs';
     AuthService,
     WeatherService,
     UserService,
-    HttpService,
     {
       provide: HttpService,
-      useFactory: (backend: XHRBackend, options: RequestOptions) => {
-        return new HttpService(backend, options);
+      useFactory: (backend: XHRBackend, options: RequestOptions, router: Router, snackBar: MdSnackBar) => {
+        return new HttpService(backend, options, router, snackBar);
       },
-      deps: [XHRBackend, RequestOptions]
+      deps: [XHRBackend, RequestOptions, Router, MdSnackBar]
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, ChangePasswordComponent]
 })
 export class AppModule { }

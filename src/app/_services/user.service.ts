@@ -3,6 +3,8 @@ import { HttpService } from './http.service';
 
 import { DatasService } from './datas.service';
 
+import { Router } from '@angular/router';
+
 /**
  * User Service
  * 
@@ -19,7 +21,7 @@ export class UserService extends DatasService {
    * @memberOf UserService
    */
   constructor(public http: HttpService) {
-    super(http);
+    super();
   }
 
   /**

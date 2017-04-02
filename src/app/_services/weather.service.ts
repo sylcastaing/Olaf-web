@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { DatasService } from './/datas.service';
+import { DatasService } from './datas.service';
 
 import 'rxjs/add/operator/map';
 
@@ -20,7 +20,7 @@ export class WeatherService extends DatasService {
    * @memberOf WeathersService
    */
   constructor(public http: HttpService) {
-    super(http);
+    super();
   }
 
   /**
