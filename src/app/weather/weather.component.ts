@@ -37,7 +37,8 @@ export class WeatherComponent implements OnInit {
 
     this.weatherService.get(yesterdayDate, todayDate.getTime())
       .subscribe(weathers => {
-        this.feedCharts(weathers);
+        this.weathers = weathers;
+        this.feedCharts();
         this.indoorTemp = new Weather((weathers.indoorTemps) ? weathers.indoorTemps[0] : {});
         this.outdoorTemp = new Weather((weathers.outdoorTemps) ? weathers.outdoorTemps[0] : {});
         this.pressure = new Weather((weathers.pressures) ? weathers.pressures[0] : {});
@@ -75,18 +76,28 @@ export class WeatherComponent implements OnInit {
     this.pressureChart = chart;
   }
 
-  private feedCharts(weathers) {
-    this.tempChart.series[0].setData(weathers.indoorTemps.map(temp => {
-          return [new Date(temp.date).getTime(), temp.value];
-        }))
+  private feedCharts() {
+    this.feedIndoorTempsChart();
+    this.feedOutdoorTempsChart();
+    this.feedPressuresChart();
+  }
 
-    this.tempChart.series[1].setData(weathers.outdoorTemps.map(temp => {
-          return [new Date(temp.date).getTime(), temp.value];
-        }))
+  private feedIndoorTempsChart() {
+    this.weathers.indoorTemps.forEach(data => {
+      this.tempChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
+    });
+  }
 
-    this.pressureChart.series[0].setData(weathers.pressures.map(temp => {
-          return [new Date(temp.date).getTime(), temp.value];
-        }))
+  private feedOutdoorTempsChart() {
+    this.weathers.outdoorTemps.forEach(data => {
+      this.tempChart.series[1].addPoint([new Date(data.date).getTime(), data.value]);
+    });
+  }
+
+  private feedPressuresChart() {
+    this.weathers.pressures.forEach(data => {
+      this.pressureChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
+    });
   }
 
   private initCharts() {
