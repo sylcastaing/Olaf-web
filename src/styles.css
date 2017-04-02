@@ -28,3 +28,20 @@ app-root > md-sidenav-container {
 .spacer {
   flex: 1 1 auto;
 }
+
+.olaf-input-content {
+  padding: 5px 0;
+}
+
+.olaf-input-content md-input-container {
+  width: 100%;
+}
+
+md-dialog-container, [md-dialog-title] {
+  padding: 0 !important;
+  margin: 0;
+}
+
+md-dialog-container [md-dialog-content] {
+  margin: 24px;
+}

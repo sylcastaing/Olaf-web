@@ -8,8 +8,10 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
 
-  constructor(public http: HttpService, public userService: UserService) {
+  private _user: any = null;
 
+  constructor(public http: HttpService, public userService: UserService) {
+    this.loadUser();
   }
 
   login(credentials) {
@@ -19,12 +21,34 @@ export class AuthService {
 
         if (token && token.token) {
           localStorage.setItem('token', token.token);
+          this.loadUser();
         }
       });
   }
 
   logout() {
+    this._user = null;
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  }
+
+  private loadUser() {
+    this.userService.me()
+      .subscribe(res => {
+        localStorage.setItem('user', JSON.stringify(res));
+        this._user = res;
+      });
+  }
+
+  get user(): any {
+    return this._user
+  }
+
+  isAuthenticated() : boolean {
+    return this._user !== null;
+  }
+
+  isAdmin() : boolean {
+    return this._user !== null && this._user.role === 'admin';
   }
 }

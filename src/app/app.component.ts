@@ -4,6 +4,8 @@ import { MdDialog } from '@angular/material';
 
 import { ChangePasswordComponent } from './user/';
 
+import { AuthService } from './_services';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,23 +13,8 @@ import { ChangePasswordComponent } from './user/';
 })
 export class AppComponent {
   
-  constructor(public dialog: MdDialog) {
+  constructor(public authService: AuthService, private dialog: MdDialog) {
 
-  }
-
-  isAuthenticated() {
-    return (localStorage.getItem('token') !== null);
-  }
-
-  isAdmin() {
-    var isAdmin = false;
-    var user = localStorage.getItem('user');
-
-    if (user !== null) {
-      isAdmin = (JSON.parse(user).role === 'admin');
-    }
-
-    return isAdmin;
   }
 
   changePassword() {

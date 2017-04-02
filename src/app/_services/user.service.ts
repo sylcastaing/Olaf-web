@@ -36,4 +36,17 @@ export class UserService extends DatasService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  /**
+   * Change password of user
+   * 
+   * @param userId
+   * @param passwords
+   */
+  changePassword(userId, passwords) {
+    delete(passwords.confirmNewPassword);
+    return this.http.put('/api/users/' + userId + '/password', passwords)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 }

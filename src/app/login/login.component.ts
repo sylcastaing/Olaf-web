@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public authService: AuthService, public userService: UserService, public formBuilder: FormBuilder, public router: Router, private route: ActivatedRoute, public snackBar: MdSnackBar) {
     this.loginForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$'), Validators.required])],
+      email: ['', Validators.compose([Validators.email, Validators.required])],
       password: ['', Validators.required]
     });
   }
@@ -30,28 +30,20 @@ export class LoginComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
+  }
 
   login() {
     this.loading = true;
     this.authService.login(this.loginForm.value)
       .subscribe(
         () => {
-          this.loadUser();
+          this.router.navigate(['/']);
         },
         error => {
           this.loading = false;
           this.showError(error);
         }
       )
-  }
-
-  private loadUser() {
-    this.userService.me()
-      .subscribe(res => {
-        localStorage.setItem('user', JSON.stringify(res));
-        this.router.navigate([this.returnUrl]);
-      });
   }
 
   private showError(error: any) {

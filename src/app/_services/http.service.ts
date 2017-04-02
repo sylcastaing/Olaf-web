@@ -28,13 +28,52 @@ export class HttpService extends Http {
         options = {headers: new Headers()};
       }
       options.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+      options.headers.set('Content-Type', 'application/json');
     }
     else {
        url.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+       url.headers.set('Content-Type', 'application/json');
     }
 
-    return this.intercept(super.request(url, options));
+    return super.request(url, options);
   }
+
+  get(url: string, intercept?: boolean, options?: RequestOptionsArgs): Observable<Response> {
+    if (intercept) {
+      return this.intercept(super.get(url, options));
+    }
+    else {
+      return super.get(url, options);
+    }
+  }
+
+  post(url: string, body: any, intercept?: boolean, options?: RequestOptionsArgs): Observable<Response> {
+    if (!options) {
+      options = {headers: new Headers()};
+    }
+    options.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    if (intercept) {
+      return this.intercept(super.post(url, body, options));
+    }
+    else {
+      return super.post(url, body, options)
+    }
+  };
+
+  put(url: string, body: any, intercept?: boolean, options?: RequestOptionsArgs): Observable<Response> {
+    if (!options) {
+      options = {headers: new Headers()};
+    }
+    options.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    if (intercept) {
+      return this.intercept(super.put(url, body, options));
+    }
+    else {
+      return super.put(url, body, options)
+    }
+  };
 
   private intercept(observable: Observable<Response>) : Observable<Response> {
     return observable.catch(err => {

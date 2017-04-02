@@ -14,14 +14,6 @@
   padding: 30px;
 }
 
-.olaf-login-container .olaf-input-content {
-  padding: 5px 0;
-}
-
-.olaf-login-container .olaf-input-content md-input-container {
-  width: 100%;
-}
-
 .olaf-login-container .olaf-login-button {
   margin-top: 15px;
 }
