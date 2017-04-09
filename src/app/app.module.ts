@@ -11,7 +11,7 @@ import { routing } from './app.routing';
 import { MaterialModule, MdSnackBar } from '@angular/material';
 import { ChartModule } from 'angular2-highcharts';
 
-import { AuthService, HttpService, WeatherService, UserService } from './_services';
+import { AuthService, HttpService, WeatherService, UserService, DialogService } from './_services';
 
 import { AuthGuard, AdminGuard } from './_guards';
 
@@ -19,6 +19,7 @@ import { WeatherComponent } from './weather';
 import { LoginComponent } from './login';
 import { ChangePasswordComponent } from './user';
 import { UsersComponent, UserComponent } from './admin';
+import { ConfirmDialogComponent } from './dialog';
 
 import 'hammerjs';
 
@@ -29,7 +30,8 @@ import 'hammerjs';
     LoginComponent,
     ChangePasswordComponent,
     UsersComponent,
-    UserComponent
+    UserComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ import 'hammerjs';
     AuthService,
     WeatherService,
     UserService,
+    DialogService,
     {
       provide: HttpService,
       useFactory: (backend: XHRBackend, options: RequestOptions, router: Router, snackBar: MdSnackBar) => {
@@ -54,6 +57,10 @@ import 'hammerjs';
       deps: [XHRBackend, RequestOptions, Router, MdSnackBar]
     },
   ],
-  bootstrap: [AppComponent, ChangePasswordComponent]
+  entryComponents: [
+    ChangePasswordComponent,
+    ConfirmDialogComponent
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

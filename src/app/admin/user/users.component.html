@@ -10,7 +10,7 @@
         <button md-icon-button mdTooltip="Modifier" [routerLink]="['/admin/users/', user._id]">
           <md-icon>settings</md-icon>
         </button>
-        <button md-icon-button mdTooltip="Supprimer">
+        <button md-icon-button mdTooltip="Supprimer" (click)="deleteUser(user)">
           <md-icon>delete</md-icon>
         </button>
       </md-list-item>

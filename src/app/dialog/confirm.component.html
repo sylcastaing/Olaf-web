@@ -1,0 +1,12 @@
+<div md-dialog-title>
+  <md-toolbar color="primary" class="txtcenter">
+    <div class="title">{{ title }}</div>
+  </md-toolbar>
+</div>
+<div md-dialog-content class="olaf-confirm-dialog">
+  <div class="message">{{ message }}</div>
+  <div class="txtcenter">
+    <button md-raised-button color="primary" (click)="dialogRef.close(true)">Oui</button>
+    <button md-raised-button color="warn" (click)="dialogRef.close(false)">Non</button>
+  </div>
+</div>
