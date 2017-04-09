@@ -6,6 +6,8 @@ import { WeatherService } from '../_services';
 
 import { Weather } from '../_models';
 
+import { deserialize } from "serializer.ts/Serializer";
+
 @Component({
   moduleId: module.id,
   templateUrl: 'weather.component.html',
@@ -39,24 +41,25 @@ export class WeatherComponent implements OnInit {
       .subscribe(weathers => {
         this.weathers = weathers;
         this.feedCharts();
-        this.indoorTemp = new Weather((weathers.indoorTemps) ? weathers.indoorTemps[0] : {});
-        this.outdoorTemp = new Weather((weathers.outdoorTemps) ? weathers.outdoorTemps[0] : {});
-        this.pressure = new Weather((weathers.pressures) ? weathers.pressures[0] : {});
+        this.indoorTemp = (weathers.indoorTemps) ? weathers.indoorTemps[0] : new Weather();
+        this.outdoorTemp = (weathers.outdoorTemps) ? weathers.outdoorTemps[0] : new Weather();
+        this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
       });
 
     this.weatherService.getUpdates('weather')
+      .map(res => deserialize<Weather>(Weather, res))
       .subscribe(data => {
         if (data.type === 'indoorTemp') {
-          this.indoorTemp = new Weather(data);
-          this.tempChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
+          this.indoorTemp = data;
+          this.tempChart.series[0].addPoint([data.date.getTime(), data.value]);
         }
         else if (data.type === 'outdoorTemp') {
-          this.outdoorTemp = new Weather(data);
-          this.tempChart.series[1].addPoint([new Date(data.date).getTime(), data.value]);
+          this.outdoorTemp = data;
+          this.tempChart.series[1].addPoint([data.date.getTime(), data.value]);
         }
         else if (data.type === 'pressure') {
-          this.pressure = new Weather(data);
-          this.pressureChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
+          this.pressure = data;
+          this.pressureChart.series[0].addPoint([data.date.getTime(), data.value]);
         }
       });
     

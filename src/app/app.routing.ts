@@ -2,8 +2,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/';
 import { WeatherComponent } from './weather/';
+import { UsersComponent, UserComponent } from './admin/';
 
-import { AuthGuard } from './_guards';
+import { AuthGuard, AdminGuard } from './_guards';
 
 const appRoutes: Routes = [
   {
@@ -14,6 +15,20 @@ const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'admin/users',
+    component: UsersComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'admin/users/:id',
+    component: UserComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'admin',
+    redirectTo: 'admin/users'
   },
   {
     path: '**',

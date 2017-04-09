@@ -13,11 +13,12 @@ import { ChartModule } from 'angular2-highcharts';
 
 import { AuthService, HttpService, WeatherService, UserService } from './_services';
 
-import { AuthGuard } from './_guards';
+import { AuthGuard, AdminGuard } from './_guards';
 
 import { WeatherComponent } from './weather';
 import { LoginComponent } from './login';
 import { ChangePasswordComponent } from './user';
+import { UsersComponent, UserComponent } from './admin';
 
 import 'hammerjs';
 
@@ -26,7 +27,9 @@ import 'hammerjs';
     AppComponent,
     WeatherComponent,
     LoginComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    UsersComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import 'hammerjs';
   ],
   providers: [
     AuthGuard,
+    AdminGuard,
     AuthService,
     WeatherService,
     UserService,

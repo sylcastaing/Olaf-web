@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { DatasService } from './datas.service';
 
+import { Weather } from '../_models';
+
+import { deserialize } from 'serializer.ts/Serializer';
+
 import 'rxjs/add/operator/map';
 
 /**
@@ -35,6 +39,15 @@ export class WeatherService extends DatasService {
   get(start: Number, end: Number) {
     return this.http.get('/api/weathers/' + start + '/' + end, true)
       .map(this.extractData)
+      .map(datas => {
+        let weathers: any = {};
+        
+        weathers.indoorTemps = deserialize<Weather[]>(Weather, datas.indoorTemps);
+        weathers.outdoorTemps = deserialize<Weather[]>(Weather, datas.indoorTemps);
+        weathers.pressures = deserialize<Weather[]>(Weather, datas.indoorTemps);
+
+        return weathers;
+      })
       .catch(this.handleError);
   }
 

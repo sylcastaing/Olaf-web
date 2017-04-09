@@ -1,15 +1,13 @@
-export class Weather {
-  _id: string;
-  type: string;
-  value: number;
-  date: Date;
+import { Type } from "serializer.ts/Decorators";
 
-  constructor(input: any) {
-    this._id = input._id;
-    this.type = input.type;
-    this.value = input.value;
-    this.date = input.date;
-  }
+export class Weather {
+
+  public _id: string;
+  public type: string;
+  public value: number;
+
+  @Type(() => Date)
+  public date: Date;
 
   get unit(): string {
     var result = '°C';
@@ -22,6 +20,12 @@ export class Weather {
   }
 
   get label(): string {
-    return this.value + this.unit;
+    let label = '';
+
+    if (this.value) {
+      label = this.value + this.unit;
+    }
+
+    return label;
   }
 }

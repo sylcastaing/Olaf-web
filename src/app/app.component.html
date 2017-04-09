@@ -2,6 +2,7 @@
   <button md-icon-button [hidden]="!authService.isAuthenticated()" class="menu-button" (click)="sidenav.toggle()"><md-icon>menu</md-icon></button>
   <span>Olaf</span>
   <span class="spacer"></span>
+  <span *ngIf="authService.user">{{ authService.user.name }}</span>
   <button md-icon-button [hidden]="!authService.isAuthenticated()" [mdMenuTriggerFor]="menu" txtright>
     <md-icon>more_vert</md-icon>
   </button>
@@ -17,14 +18,14 @@
   </md-menu>
 </md-toolbar>
 
-<md-sidenav-container class="menu">
+<md-sidenav-container class="olaf-menu">
   <md-sidenav #sidenav mode="side" opened="true" [hidden]="!authService.isAuthenticated()">
     <md-card>
       <button md-menu-item>
         <md-icon>tv</md-icon>
         <span>Télécommande</span>
       </button>
-      <button md-menu-item>
+      <button md-menu-item routerLink="/">
         <md-icon>wb_sunny</md-icon>
         <span>Météo</span>
       </button>
@@ -35,7 +36,7 @@
         <md-icon>settings_remote</md-icon>
         <span>Gestion télécommande</span>
       </button>
-      <button md-menu-item>
+      <button md-menu-item routerLink="/admin/users">
         <md-icon>account_box</md-icon>
         <span>Utilisateurs</span>
       </button>

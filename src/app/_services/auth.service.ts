@@ -3,12 +3,14 @@ import { HttpService } from './http.service';
 
 import { UserService } from './user.service';
 
+import { User } from '../_models';
+
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
 
-  private _user: any = null;
+  private _user: User = null;
 
   constructor(public http: HttpService, public userService: UserService) {
     this.loadUser();
@@ -49,6 +51,6 @@ export class AuthService {
   }
 
   isAdmin() : boolean {
-    return this._user !== null && this._user.role === 'admin';
+    return this._user !== null && this._user.isAdmin;
   }
 }
