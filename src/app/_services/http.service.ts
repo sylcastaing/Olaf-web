@@ -23,16 +23,21 @@ export class HttpService extends Http {
   }
 
   request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
+    let token = localStorage.getItem('token');
     if (typeof url === 'string') {
       if (!options) {
         options = {headers: new Headers()};
       }
-      options.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+      if (token) {
+        options.headers.set('Authorization', 'Bearer ' + token);
+      }      
       options.headers.set('Content-Type', 'application/json');
     }
     else {
-       url.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-       url.headers.set('Content-Type', 'application/json');
+      if (token) {
+        url.headers.set('Authorization', 'Bearer ' + token);
+      }
+      url.headers.set('Content-Type', 'application/json');
     }
 
     return super.request(url, options);
@@ -72,6 +77,21 @@ export class HttpService extends Http {
     }
     else {
       return super.put(url, body, options)
+    }
+  };
+
+  delete(url: string, intercept?: boolean, options?: RequestOptionsArgs): Observable<Response> {
+
+    if (!options) {
+      options = {headers: new Headers()};
+    }
+    options.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+    if (intercept) {
+      return this.intercept(super.delete(url, options));
+    }
+    else {
+      return super.delete(url, options);
     }
   };
 

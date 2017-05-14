@@ -45,17 +45,27 @@ export class UserService extends DatasService {
   }
 
   /**
-   * Get one user
+   * Create a new user
    * 
-   * @param {string} id 
+   * @param user
+   */
+  add(user) {
+    return this.http.post('/api/users', user, true)
+      .map(this.extractData)
+      .map(res => deserialize<User>(User, res))
+      .catch(this.handleError);
+  }
+
+  /**
+   * Remove a user
+   * 
+   * @param {User} user 
    * @returns 
    * 
    * @memberOf UserService
    */
-  get(id: string) {
-    return this.http.get('/api/users/' + id, true)
-      .map(this.extractData)
-      .map(res => deserialize<User>(User, res))
+  remove(user: User) {
+    return this.http.delete('/api/users/' + user._id, true)
       .catch(this.handleError);
   }
 

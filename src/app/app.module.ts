@@ -10,7 +10,9 @@ import { routing } from './app.routing';
 
 import { MaterialModule, MdSnackBar } from '@angular/material';
 import { ChartModule } from 'angular2-highcharts';
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 
+import { httpFactory, chartFactory } from './_factories';
 import { AuthService, HttpService, WeatherService, UserService, DialogService } from './_services';
 
 import { AuthGuard, AdminGuard } from './_guards';
@@ -18,7 +20,7 @@ import { AuthGuard, AdminGuard } from './_guards';
 import { WeatherComponent } from './weather';
 import { LoginComponent } from './login';
 import { ChangePasswordComponent } from './user';
-import { UsersComponent, UserComponent } from './admin';
+import { UsersComponent, AddUserComponent } from './admin';
 import { ConfirmDialogComponent } from './dialog';
 
 import 'hammerjs';
@@ -30,7 +32,7 @@ import 'hammerjs';
     LoginComponent,
     ChangePasswordComponent,
     UsersComponent,
-    UserComponent,
+    AddUserComponent,
     ConfirmDialogComponent
   ],
   imports: [
@@ -40,7 +42,7 @@ import 'hammerjs';
     ReactiveFormsModule,
     MaterialModule,
     routing,
-    ChartModule.forRoot(require('highcharts'))
+    ChartModule
   ],
   providers: [
     AuthGuard,
@@ -51,14 +53,17 @@ import 'hammerjs';
     DialogService,
     {
       provide: HttpService,
-      useFactory: (backend: XHRBackend, options: RequestOptions, router: Router, snackBar: MdSnackBar) => {
-        return new HttpService(backend, options, router, snackBar);
-      },
+      useFactory: httpFactory,
       deps: [XHRBackend, RequestOptions, Router, MdSnackBar]
+    },
+    {
+      provide: HighchartsStatic,
+      useFactory: chartFactory
     },
   ],
   entryComponents: [
     ChangePasswordComponent,
+    AddUserComponent,
     ConfirmDialogComponent
   ],
   bootstrap: [AppComponent]

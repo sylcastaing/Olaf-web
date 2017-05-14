@@ -1,0 +1,34 @@
+<div md-dialog-title>
+  <md-toolbar color="primary" class="txtcenter">
+    <div class="title">Ajouter un utilisateur</div>
+  </md-toolbar>
+</div>
+<div md-dialog-content class="olaf-confirm-dialog">
+  <form [formGroup]="userForm">
+    
+    <div class="olaf-input-content">
+      <md-input-container>
+        <input mdInput placeholder="Nom" type="text" formControlName="name"/>
+      </md-input-container>
+    </div>
+    <div class="olaf-input-content">
+      <md-input-container>
+        <input mdInput placeholder="Email" type="email" formControlName="email"/>
+      </md-input-container>
+    </div>
+    <div class="olaf-input-content">
+      <md-input-container>
+        <input mdInput placeholder="Mot de passe" type="password" formControlName="password"/>
+      </md-input-container>
+    </div>
+    <div class="olaf-input-content">
+      <md-select placeholder="Role" formControlName="role">
+        <md-option value="user">Utilisateur</md-option>
+        <md-option value="admin">Administrateur</md-option>
+      </md-select>
+    </div>
+    <div class="olaf-input-content txtcenter">
+      <button md-raised-button color="primary" [disabled]="!userForm.valid" (click)="save()">Enregistrer</button>
+    </div>
+  </form>
+</div>
