@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/';
 import { WeatherComponent } from './weather/';
-import { UsersComponent, UserComponent } from './admin/';
+import { UsersComponent } from './admin/';
 
 import { AuthGuard, AdminGuard } from './_guards';
 
@@ -19,11 +19,6 @@ const appRoutes: Routes = [
   {
     path: 'admin/users',
     component: UsersComponent,
-    canActivate: [AdminGuard]
-  },
-  {
-    path: 'admin/users/:id',
-    component: UserComponent,
     canActivate: [AdminGuard]
   },
   {

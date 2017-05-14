@@ -33,7 +33,7 @@ app-root > md-sidenav-container {
   padding: 5px 0;
 }
 
-.olaf-input-content md-input-container {
+.olaf-input-content md-input-container, .olaf-input-content md-select {
   width: 100%;
 }
 
