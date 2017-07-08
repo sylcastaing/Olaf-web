@@ -1,4 +1,4 @@
-import { XHRBackend, RequestOptions } from '@angular/http';
+import { XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 

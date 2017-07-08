@@ -29,6 +29,10 @@
         <md-icon>wb_sunny</md-icon>
         <span>Météo</span>
       </button>
+      <button md-menu-item routerLink="/camera">
+        <md-icon>linked_camera</md-icon>
+        <span>Caméra</span>
+      </button>
     </md-card>
     <md-card [hidden]="!authService.isAdmin()">
       <md-card-subtitle>Administration</md-card-subtitle>

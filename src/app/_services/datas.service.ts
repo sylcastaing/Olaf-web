@@ -13,10 +13,13 @@ import 'rxjs/add/observable/throw'
  * DatasService
  * 
  * @export
- * @abstract
+ *
  * @class DatasService
  */
-export abstract class DatasService {
+@Injectable()
+export class DatasService {
+
+  private socket: any;
 
   constructor() {
     
@@ -62,10 +65,17 @@ export abstract class DatasService {
     return Observable.throw(retour);
   }
 
-  public getUpdates(modelName: String) : Observable<any> {
+  public getUpdates(modelName: string, type: string) : Observable<any> {
+    if (this.socket === undefined || this.socket === null) {
+      this.socket = io('', {
+        ws: true,
+        query: 'token=' + localStorage.getItem('token')
+      });
+    }
+
     let observable = new Observable(observer => {
       var socket = this.socket;
-      socket.on(modelName + ':save', (data) => {
+      socket.on(modelName + type, (data) => {
         observer.next(data);
       });
       return () => {
@@ -76,10 +86,8 @@ export abstract class DatasService {
     return observable;
   }
 
-  get socket(): any {
-    return io('', {
-      ws: true,
-      query: 'token=' + localStorage.getItem('token')
-    })
-  }
+  public closeSocket() : void {
+    this.socket.disconnect(0);
+    this.socket = null;
+  } 
 }

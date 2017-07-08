@@ -1,6 +1,6 @@
 declare var require: any;
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { WeatherService } from '../_services';
 
@@ -13,7 +13,7 @@ import { deserialize } from "serializer.ts/Serializer";
   templateUrl: 'weather.component.html',
   styleUrls: ['weather.component.css']
 })
-export class WeatherComponent implements OnInit {
+export class WeatherComponent implements OnInit, OnDestroy {
 
   private weathers: any;
 
@@ -41,12 +41,12 @@ export class WeatherComponent implements OnInit {
       .subscribe(weathers => {
         this.weathers = weathers;
         this.feedCharts();
-        this.indoorTemp = (weathers.indoorTemps) ? weathers.indoorTemps[0] : new Weather();
+        this.indoorTemp = (weathers.indoorTemps) ? weathers.indoOnDestroyorTemps[0] : new Weather();
         this.outdoorTemp = (weathers.outdoorTemps) ? weathers.outdoorTemps[0] : new Weather();
         this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
       });
 
-    this.weatherService.getUpdates('weather')
+    this.weatherService.getUpdates('weather', ':save')
       .map(res => deserialize<Weather>(Weather, res))
       .subscribe(data => {
         if (data.type === 'indoorTemp') {
@@ -162,5 +162,9 @@ export class WeatherComponent implements OnInit {
         name: 'Pression'
       }]
     };
+  }
+
+  ngOnDestroy() {
+    this.weatherService.closeSocket();
   }
 }
