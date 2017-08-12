@@ -4,4 +4,4 @@ FROM tobi312/rpi-nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # COPY content after build-prod
-COPY dist /usr/share/nginx/hml
+COPY dist /usr/share/nginx/html
