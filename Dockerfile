@@ -1,16 +1,14 @@
 FROM resin/raspberry-pi-alpine-node:7.10
 
-ENV NODE_ENV production
-
 WORKDIR /usr/src/app
 
 COPY package.json /usr/src/app
 
-RUN npm install -g @angular/cli @angular/compiler-cli
-
 RUN npm install
 
 COPY . /usr/src/app
+
+ENV NODE_ENV production
 
 RUN npm run build-prod
 
