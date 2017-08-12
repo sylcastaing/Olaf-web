@@ -1,19 +1,7 @@
-FROM resin/raspberry-pi-alpine-node:7.10
+FROM akkerman/rpi-nginx
 
-WORKDIR /usr/src/app
+# COPY NGINX conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY package.json /usr/src/app
-
-RUN npm install -g node-gyp
-
-RUN npm install
-
-COPY . /usr/src/app
-
-ENV NODE_ENV production
-
-RUN npm run build-prod
-
-EXPOSE 4200
-
-CMD ["npm", "run", "start-prod"]
+# COPY content after build-prod
+COPY dist /usr/share/nginx/hml
