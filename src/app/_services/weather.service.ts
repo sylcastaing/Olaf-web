@@ -37,7 +37,7 @@ export class WeatherService extends DatasService {
    * @memberOf WeathersService
    */
   get(start: Number, end: Number) {
-    return this.http.get('/api/weathers/' + start + '/' + end, true)
+    return this.http.get('/api/weathers/' + start + '/' + end, null, true)
       .map(this.extractData)
       .map(datas => {
         let weathers: any = {};
