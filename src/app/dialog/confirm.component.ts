@@ -12,7 +12,7 @@ export class ConfirmDialogComponent {
   public title: string;
   public message: string;
 
-  constructor(private dialogRef: MdDialogRef<ConfirmDialogComponent>) {
+  constructor(public dialogRef: MdDialogRef<ConfirmDialogComponent>) {
 
   }
 }
