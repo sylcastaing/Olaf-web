@@ -12,8 +12,8 @@ RUN npm install
 
 COPY . /usr/src/app
 
-RUN npm build-prod
+RUN npm run build-prod
 
 EXPOSE 4200
 
-CMD ["npm", "start-prod"]
+CMD ["npm", "run", "start-prod"]
