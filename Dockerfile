@@ -1,4 +1,4 @@
-FROM akkerman/rpi-nginx
+FROM tobi312/rpi-nginx
 
 # COPY NGINX conf
 COPY nginx.conf /etc/nginx/nginx.conf
