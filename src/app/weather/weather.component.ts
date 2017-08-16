@@ -41,7 +41,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
       .subscribe(weathers => {
         this.weathers = weathers;
         this.feedCharts();
-        this.indoorTemp = (weathers.indoorTemps) ? weathers.indoOnDestroyorTemps[0] : new Weather();
+        this.indoorTemp = (weathers.indoorTemps) ? weathers.indoorTemps[0] : new Weather();
         this.outdoorTemp = (weathers.outdoorTemps) ? weathers.outdoorTemps[0] : new Weather();
         this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
       });
