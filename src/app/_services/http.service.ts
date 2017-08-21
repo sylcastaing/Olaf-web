@@ -22,7 +22,7 @@ export class HttpService extends Http {
     super(backend, defaultOptions);
   }
 
-  request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
+  public request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
     let token = localStorage.getItem('token');
     if (typeof url === 'string') {
       if (!options) {
@@ -43,7 +43,7 @@ export class HttpService extends Http {
     return super.request(url, options);
   }
 
-  get(url: string, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
+  public get(url: string, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
     if (intercept) {
       return this.intercept(super.get(url, options));
     }
@@ -52,7 +52,7 @@ export class HttpService extends Http {
     }
   }
 
-  post(url: string, body: any, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
+  public post(url: string, body: any, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
     if (!options) {
       options = {headers: new Headers()};
     }
@@ -66,7 +66,7 @@ export class HttpService extends Http {
     }
   };
 
-  put(url: string, body: any, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
+  public put(url: string, body: any, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
     if (!options) {
       options = {headers: new Headers()};
     }
@@ -80,7 +80,7 @@ export class HttpService extends Http {
     }
   };
 
-  delete(url: string, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
+  public delete(url: string, options?: RequestOptionsArgs, intercept?: boolean): Observable<Response> {
 
     if (!options) {
       options = {headers: new Headers()};

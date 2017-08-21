@@ -45,6 +45,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
         this.outdoorTemp = (weathers.outdoorTemps) ? weathers.outdoorTemps[0] : new Weather();
         this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
       });
+    
+    this.weatherService.joinRoom('weather');
 
     this.weatherService.getUpdates('weather', ':save')
       .map(res => deserialize<Weather>(Weather, res))
@@ -165,6 +167,6 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.weatherService.closeSocket();
+    this.weatherService.leaveRoom('weather');
   }
 }

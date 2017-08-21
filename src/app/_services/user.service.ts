@@ -37,7 +37,7 @@ export class UserService extends DatasService {
   * 
   * @memberOf UserService
   */
-  all() {
+  public all() {
     return this.http.get('/api/users/', null, true)
       .map(this.extractData)
       .map(res => deserialize<User[]>(User, res))
@@ -49,7 +49,7 @@ export class UserService extends DatasService {
    * 
    * @param user
    */
-  add(user) {
+  public add(user) {
     return this.http.post('/api/users', user, null, true)
       .map(this.extractData)
       .map(res => deserialize<User>(User, res))
@@ -64,7 +64,7 @@ export class UserService extends DatasService {
    * 
    * @memberOf UserService
    */
-  remove(user: User) {
+  public remove(user: User) {
     return this.http.delete('/api/users/' + user._id, null, true)
       .catch(this.handleError);
   }
@@ -76,7 +76,7 @@ export class UserService extends DatasService {
    * 
    * @memberOf UsersService
    */
-  me() {
+  public me() {
     return this.http.get('/api/users/me')
       .map(this.extractData)
       .map(res => deserialize<User>(User, res))
@@ -89,7 +89,7 @@ export class UserService extends DatasService {
    * @param userId
    * @param passwords
    */
-  changePassword(userId, passwords) {
+  public changePassword(userId, passwords) {
     delete(passwords.confirmNewPassword);
     return this.http.put('/api/users/' + userId + '/password', passwords)
       .map(this.extractData)

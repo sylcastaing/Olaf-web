@@ -21,6 +21,8 @@ export class CameraComponent implements OnDestroy {
 
     let ctx = this.canvas.nativeElement.getContext('2d');
 
+    this.datasService.joinRoom('camera');
+
     this.datasService.getUpdates('camera', '')
     .subscribe(data => {
         try {
@@ -41,6 +43,6 @@ export class CameraComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.datasService.closeSocket();
+    this.datasService.leaveRoom('camera');
   }
 }
