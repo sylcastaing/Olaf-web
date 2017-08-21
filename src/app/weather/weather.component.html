@@ -19,7 +19,7 @@
   </md-grid-tile>
 </md-grid-list>
 
- <md-card *ngIf="tempChartOptions && (indoorTemp || outdoorTemps)" class="olaf-chart">
+ <md-card *ngIf="tempChartOptions && (indoorTemp || outdoorTemp)" class="olaf-chart">
   <chart [options]="tempChartOptions" (load)="saveTempChart($event.context)"></chart>
 </md-card>
 
