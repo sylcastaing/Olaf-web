@@ -28,4 +28,8 @@ export class Weather {
 
     return label;
   }
+
+  get serie(): any {
+    return [this.date.getTime(), this.value];
+  }
 }

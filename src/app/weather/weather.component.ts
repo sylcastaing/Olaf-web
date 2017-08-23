@@ -37,31 +37,38 @@ export class WeatherComponent implements OnInit, OnDestroy {
     var todayDate = new Date();
     var yesterdayDate = new Date().setDate(todayDate.getDate() - 1);
 
+    /**
+     * Get weathers
+     */
     this.weatherService.get(yesterdayDate, todayDate.getTime())
       .subscribe(weathers => {
         this.weathers = weathers;
-        this.feedCharts();
+        
         this.indoorTemp = (weathers.indoorTemps) ? weathers.indoorTemps[0] : new Weather();
         this.outdoorTemp = (weathers.outdoorTemps) ? weathers.outdoorTemps[0] : new Weather();
         this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
+
+        this.feedCharts();
       });
     
+    // Join weather room for socket io
     this.weatherService.joinRoom('weather');
-
+    
+    // Socket
     this.weatherService.getUpdates('weather', ':save')
       .map(res => deserialize<Weather>(Weather, res))
       .subscribe(data => {
         if (data.type === 'indoorTemp') {
           this.indoorTemp = data;
-          this.tempChart.series[0].addPoint([data.date.getTime(), data.value]);
+          this.tempChart.series[0].addPoint(data.serie);
         }
         else if (data.type === 'outdoorTemp') {
           this.outdoorTemp = data;
-          this.tempChart.series[1].addPoint([data.date.getTime(), data.value]);
+          this.tempChart.series[1].addPoint(data.serie);
         }
         else if (data.type === 'pressure') {
           this.pressure = data;
-          this.pressureChart.series[0].addPoint([data.date.getTime(), data.value]);
+          this.pressureChart.series[0].addPoint(data.serie);
         }
       });
     
@@ -73,38 +80,86 @@ export class WeatherComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Init tempChart
+   * 
+   * @param {any} chart 
+   * @memberof WeatherComponent
+   */
   saveTempChart(chart) {
     this.tempChart = chart;
   }
 
+  /**
+   * Init Presure chart
+   * 
+   * @param {any} chart 
+   * @memberof WeatherComponent
+   */
   savePressureChart(chart) {
     this.pressureChart = chart;
   }
 
+  /**
+   * Feed charts
+   * 
+   * @private
+   * @memberof WeatherComponent
+   */
   private feedCharts() {
     this.feedIndoorTempsChart();
     this.feedOutdoorTempsChart();
     this.feedPressuresChart();
   }
 
+  /**
+   * feedIndoorTempsChart
+   * 
+   * @private
+   * @memberof WeatherComponent
+   */
   private feedIndoorTempsChart() {
-    this.weathers.indoorTemps.forEach(data => {
-      this.tempChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
-    });
+    let values = [];
+    for (let data of this.weathers.indoorTemps) {
+      values.push(data.serie);
+    }
+    this.tempChart.series[0].setData(values);
   }
 
+  /**
+   * feedOutdoorTempsChart
+   * 
+   * @private
+   * @memberof WeatherComponent
+   */
   private feedOutdoorTempsChart() {
-    this.weathers.outdoorTemps.forEach(data => {
-      this.tempChart.series[1].addPoint([new Date(data.date).getTime(), data.value]);
-    });
+    let values = [];
+    for (let data of this.weathers.outdoorTemps) {
+      values.push(data.serie);
+    }
+    this.tempChart.series[1].setData(values);
   }
 
+  /**
+   * feedPressuresChart
+   * 
+   * @private
+   * @memberof WeatherComponent
+   */
   private feedPressuresChart() {
-    this.weathers.pressures.forEach(data => {
-      this.pressureChart.series[0].addPoint([new Date(data.date).getTime(), data.value]);
-    });
+    let values = [];
+    for (let data of this.weathers.pressures) {
+      values.push(data.serie);
+    }
+    this.pressureChart.series[0].setData(values);
   }
 
+  /**
+   * Set up charts
+   * 
+   * @private
+   * @memberof WeatherComponent
+   */
   private initCharts() {
     this.tempChartOptions = {
       chart: {
@@ -166,6 +221,11 @@ export class WeatherComponent implements OnInit, OnDestroy {
     };
   }
 
+  /**
+   * Leave weather room on destroy
+   * 
+   * @memberof WeatherComponent
+   */
   ngOnDestroy() {
     this.weatherService.leaveRoom('weather');
   }

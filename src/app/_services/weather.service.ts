@@ -43,8 +43,8 @@ export class WeatherService extends DatasService {
         let weathers: any = {};
         
         weathers.indoorTemps = deserialize<Weather[]>(Weather, datas.indoorTemps);
-        weathers.outdoorTemps = deserialize<Weather[]>(Weather, datas.indoorTemps);
-        weathers.pressures = deserialize<Weather[]>(Weather, datas.indoorTemps);
+        weathers.outdoorTemps = deserialize<Weather[]>(Weather, datas.outdoorTemps);
+        weathers.pressures = deserialize<Weather[]>(Weather, datas.pressures);
 
         return weathers;
       })
