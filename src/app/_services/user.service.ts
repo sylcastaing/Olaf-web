@@ -26,7 +26,7 @@ export class UserService extends DatasService {
    * 
    * @memberOf UserService
    */
-  constructor(public http: HttpService) {
+  constructor(private http: HttpService) {
     super();
   }
 
