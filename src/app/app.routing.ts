@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/';
 import { WeatherComponent } from './weather/';
 import { CameraComponent } from './camera/';
+import { ApplicationsComponent } from './applications/';
 import { UsersComponent } from './admin/';
 
 import { AuthGuard, AdminGuard } from './_guards';
@@ -16,6 +17,11 @@ const appRoutes: Routes = [
   {
     path: 'camera',
     component: CameraComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'apps',
+    component: ApplicationsComponent,
     canActivate: [AuthGuard]
   },
   {

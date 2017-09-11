@@ -19,6 +19,7 @@ import { AuthGuard, AdminGuard } from './_guards';
 
 import { CameraComponent } from './camera';
 import { WeatherComponent } from './weather';
+import { ApplicationsComponent } from './applications';
 import { LoginComponent } from './login';
 import { ChangePasswordComponent } from './user';
 import { UsersComponent, AddUserComponent } from './admin';
@@ -31,6 +32,7 @@ import 'hammerjs';
     AppComponent,
     WeatherComponent,
     CameraComponent,
+    ApplicationsComponent,
     LoginComponent,
     ChangePasswordComponent,
     UsersComponent,

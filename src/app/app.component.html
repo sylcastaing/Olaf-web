@@ -33,6 +33,10 @@
         <md-icon>linked_camera</md-icon>
         <span>Caméra</span>
       </button>
+      <button md-menu-item routerLink="/apps">
+        <md-icon>apps</md-icon>
+        <span>Applications</span>
+      </button>
     </md-card>
     <md-card [hidden]="!authService.isAdmin()">
       <md-card-subtitle>Administration</md-card-subtitle>
