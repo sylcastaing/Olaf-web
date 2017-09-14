@@ -11,8 +11,10 @@ export class CameraComponent implements OnDestroy {
 
   @ViewChild('canvas') canvas:any; 
 
+  public loading: Boolean = true;
+
   constructor(public datasService: DatasService) {
-    
+
   }
 
   ngAfterViewInit() {
@@ -25,6 +27,8 @@ export class CameraComponent implements OnDestroy {
 
     this.datasService.getUpdates('camera', '')
     .subscribe(data => {
+        this.loading = false;
+
         try {
           var context = this.canvas.nativeElement.getContext('2d');
           var imageObject = new Image();

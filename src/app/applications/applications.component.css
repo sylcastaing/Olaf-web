@@ -1,7 +1,30 @@
 .olaf-applications-content {
-  padding: 20px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.olaf-applications-content a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 10px;
 }
 
 .olaf-applications-content md-card {
-  margin-bottom: 20px;
+  display: inline-block;
+  width: 160px;
+  margin: 10px;
+}
+
+.olaf-applications-content md-card:hover {
+  background-color: #f6f6f6;
+}
+
+.olaf-applications-content md-card-header {
+  display: block;
+}
+
+.olaf-applications-content md-card md-card-title {
+  text-decoration: none;
 }
