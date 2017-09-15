@@ -1,10 +1,14 @@
 declare var require: any;
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MdSnackBar } from '@angular/material';
 
 import { WeatherService } from '../_services';
 
 import { Weather } from '../_models';
+
+import { LoaderService } from '../loader';
 
 import { deserialize } from "serializer.ts/Serializer";
 
@@ -15,7 +19,13 @@ import { deserialize } from "serializer.ts/Serializer";
 })
 export class WeatherComponent implements OnInit, OnDestroy {
 
+  public datesForm: FormGroup;
+
   private weathers: any;
+
+  public todayDate: Date;
+  public startDate: Date;
+  public endDate: Date;
 
   public indoorTemp: Weather;
   public outdoorTemp: Weather;
@@ -28,33 +38,22 @@ export class WeatherComponent implements OnInit, OnDestroy {
   public pressureChartOptions: any;
 
   public loading: Boolean = true;
+  public emptyWeathers: Boolean = true;
 
-  constructor(public weatherService: WeatherService) {
+  constructor(public weatherService: WeatherService, public formBuilder: FormBuilder, public snackBar: MdSnackBar, public loaderService: LoaderService) {
+    this.todayDate = new Date();
 
+    this.datesForm = formBuilder.group({
+      startDate: [this.todayDate, Validators.required],
+      endDate: [this.todayDate, Validators.required]
+    });
   }
 
   ngOnInit() {
     this.initCharts();
 
-    var todayDate = new Date();
-    var yesterdayDate = new Date().setDate(todayDate.getDate() - 1);
+    this.searchWeather();
 
-    /**
-     * Get weathers
-     */
-    this.weatherService.get(yesterdayDate, todayDate.getTime())
-      .subscribe(weathers => {
-        this.weathers = weathers;
-        
-        this.indoorTemp = (weathers.indoorTemps) ? weathers.indoorTemps[0] : new Weather();
-        this.outdoorTemp = (weathers.outdoorTemps) ? weathers.outdoorTemps[0] : new Weather();
-        this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
-
-        this.feedCharts();
-
-        this.loading = false;
-      });
-    
     // Join weather room for socket io
     this.weatherService.joinRoom('weather');
     
@@ -82,6 +81,55 @@ export class WeatherComponent implements OnInit, OnDestroy {
         useUTC : false
       }
     });
+  }
+
+  /**
+   * Get weathers
+   */
+  searchWeather() {
+    if (this.datesForm.value.startDate.setHours(0,0,0,0) < this.datesForm.value.endDate.setHours(23,59,59,0)) {
+      if (this.loading === false) {
+        this.loaderService.show();
+      }
+
+      this.weatherService.get(this.datesForm.value.startDate, this.datesForm.value.endDate)
+      .subscribe(weathers => {
+        this.weathers = weathers;
+        
+        if (!this.indoorTemp) {
+          this.indoorTemp = (weathers.indoorTemps) ? weathers.indoorTemps[0] : new Weather();
+        }
+
+        if (!this.outdoorTemp) {
+          this.outdoorTemp = (weathers.outdoorTemps) ? weathers.outdoorTemps[0] : new Weather();
+        }
+        
+        if (!this.pressure) {
+          this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
+        }
+
+        if (this.weathers.indoorTemps.length === 0 || this.weathers.outdoorTemps.length === 0 || this.weathers.pressures.length === 0) {
+          this.emptyWeathers = true;
+
+          this.snackBar.open('Aucune données trouvées pour les dates sélectionnées', 'Fermer', {
+            duration: 3000,
+          });
+        }
+        else {
+          this.emptyWeathers = false;
+        }
+
+        this.feedCharts();
+
+        this.loading = false;
+        this.loaderService.hide();
+      });
+    }
+    else {
+      this.snackBar.open('La date de début est supérieure à la date de fin', 'Fermer', {
+        duration: 3000,
+      });
+    }
   }
 
   /**

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
-import { MaterialModule, MdSnackBar } from '@angular/material';
+import { MaterialModule, MdSnackBar, MdDatepickerModule, MdNativeDateModule } from '@angular/material';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 
@@ -24,6 +24,7 @@ import { LoginComponent } from './login';
 import { ChangePasswordComponent } from './user';
 import { UsersComponent, AddUserComponent } from './admin';
 import { ConfirmDialogComponent } from './dialog';
+import { LoaderComponent, LoaderService } from './loader';
 
 import 'hammerjs';
 
@@ -37,7 +38,8 @@ import 'hammerjs';
     ChangePasswordComponent,
     UsersComponent,
     AddUserComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,9 @@ import 'hammerjs';
     MaterialModule,
     HttpModule,
     routing,
-    ChartModule
+    ChartModule,
+    MdDatepickerModule,
+    MdNativeDateModule
   ],
   providers: [
     AuthGuard,
@@ -57,6 +61,7 @@ import 'hammerjs';
     WeatherService,
     UserService,
     DialogService,
+    LoaderService,
     {
       provide: HttpService,
       useFactory: httpFactory,
@@ -66,6 +71,9 @@ import 'hammerjs';
       provide: HighchartsStatic,
       useFactory: chartFactory
     },
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'},
   ],
   entryComponents: [
     ChangePasswordComponent,

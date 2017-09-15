@@ -5,16 +5,19 @@ import { MdDialogRef, MdSnackBar } from '@angular/material';
 import { UserService } from '../../_services';
 import { User } from '../../_models';
 
+import { LoaderService } from '../../loader';
+
 @Component({
   templateUrl: 'addUser.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['users.component.css']
 })
 export class AddUserComponent {
 
   public user: User;
   public userForm: FormGroup;
 
-  constructor(private dialogRef: MdDialogRef<AddUserComponent>, public userService: UserService, public formBuilder: FormBuilder) {
+  constructor(private dialogRef: MdDialogRef<AddUserComponent>, public userService: UserService, public formBuilder: FormBuilder, public loaderService: LoaderService) {
     this.user = new User();
 
     this.userForm = formBuilder.group({
@@ -26,12 +29,15 @@ export class AddUserComponent {
   }
 
   public save() {
+    this.loaderService.show();
     this.userService.add(this.userForm.value)
       .subscribe(user => {
-          this.dialogRef.close(true)
-        },
-        error => {
-          console.log(error);
-        });
+        this.loaderService.hide();
+        this.dialogRef.close(true)
+      },
+      error => {
+        this.loaderService.hide();
+        console.error(error);
+      });
   }
 }

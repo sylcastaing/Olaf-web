@@ -30,13 +30,17 @@ export class WeatherService extends DatasService {
   /**
    * Get datas between 2 dates
    * 
-   * @param {Number} start 
-   * @param {Number} end 
+   * @param {Date} start 
+   * @param {Date} end 
    * @returns 
    * 
    * @memberOf WeathersService
    */
-  public get(start: Number, end: Number) {
+  public get(startDate: Date, endDate: Date) {
+
+    let start = startDate.setHours(0,0,0,0);
+    let end = endDate.setHours(23,59,59,0);
+
     return this.http.get('/api/weathers/' + start + '/' + end, null, true)
       .map(this.extractData)
       .map(datas => {

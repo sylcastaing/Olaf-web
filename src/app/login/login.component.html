@@ -1,6 +1,5 @@
 <div class="olaf-login-container">
   <md-card>
-    <md-progress-bar mode="indeterminate" *ngIf="loading"></md-progress-bar>
     <form [formGroup]="loginForm">
       <div class="olaf-input-content">
         <md-input-container>
@@ -13,7 +12,7 @@
         </md-input-container>
       </div>
       <div class="olaf-input-content txtcenter olaf-login-button">
-        <button md-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login()">Valider</button>
+        <button md-raised-button color="primary" [disabled]="!loginForm.valid || loaderService.loading" (click)="login()">Valider</button>
       </div>
     </form>
   </md-card>

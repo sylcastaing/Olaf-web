@@ -6,6 +6,8 @@ import { MdSnackBar } from '@angular/material';
 
 import { AuthService, UserService } from '../_services/';
 
+import { LoaderService } from '../loader';
+
 @Component({
   moduleId: module.id,
   templateUrl: 'login.component.html',
@@ -15,10 +17,9 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
 
-  public loading: Boolean = false;
   public returnUrl: String; 
 
-  constructor(public authService: AuthService, public userService: UserService, public formBuilder: FormBuilder, public router: Router, private route: ActivatedRoute, public snackBar: MdSnackBar) {
+  constructor(public authService: AuthService, public userService: UserService, public formBuilder: FormBuilder, public router: Router, private route: ActivatedRoute, public snackBar: MdSnackBar, public loaderService: LoaderService) {
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([Validators.email, Validators.required])],
       password: ['', Validators.required]
@@ -33,14 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loading = true;
+    this.loaderService.show();
     this.authService.login(this.loginForm.value)
       .subscribe(
         () => {
+          this.loaderService.hide();
           this.router.navigate(['/']);
         },
         error => {
-          this.loading = false;
+          this.loaderService.hide();
           this.showError(error);
         }
       )
