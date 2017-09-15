@@ -49,3 +49,13 @@ md-dialog-container, [md-dialog-title] .title {
 md-dialog-container [md-dialog-content] {
   margin: 24px;
 }
+
+/**
+* Loader
+**/
+.olaf-component-loader {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}

@@ -11,7 +11,7 @@ import { deserialize } from "serializer.ts/Serializer";
 @Component({
   moduleId: module.id,
   templateUrl: 'weather.component.html',
-  styleUrls: ['weather.component.css']
+  styleUrls: ['weather.component.scss']
 })
 export class WeatherComponent implements OnInit, OnDestroy {
 
@@ -26,6 +26,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
   public tempChartOptions: any;
   public pressureChartOptions: any;
+
+  public loading: Boolean = true;
 
   constructor(public weatherService: WeatherService) {
 
@@ -49,6 +51,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
         this.pressure = (weathers.pressures) ? weathers.pressures[0] : new Weather();
 
         this.feedCharts();
+
+        this.loading = false;
       });
     
     // Join weather room for socket io

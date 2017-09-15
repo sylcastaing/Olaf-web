@@ -1,29 +1,32 @@
-<md-grid-list cols="3" rowHeight="16:9" class="olaf-weather-content">
-  <md-grid-tile>
-    <md-card *ngIf="indoorTemp" class="olaf-weather-display">
-      <md-card-title>Intérieur</md-card-title>
-      <div>{{ indoorTemp.label }}</div>
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-    <md-card *ngIf="outdoorTemp" class="olaf-weather-display">
-      <md-card-title>Extérieur</md-card-title>
-      <div>{{ outdoorTemp.label }}</div>
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile>
-    <md-card *ngIf="outdoorTemp" class="olaf-weather-display">
-      <md-card-title>Pression</md-card-title>
-      <div>{{ pressure.label }}</div>
-    </md-card>
-  </md-grid-tile>
-</md-grid-list>
+<div [hidden]="loading">
+  <md-grid-list cols="3" rowHeight="16:9" class="olaf-weather-content" gutterSize="20px">
+    <md-grid-tile *ngIf="indoorTemp" class="olaf-weather-display">
+      <div class="mat-display-1">{{ indoorTemp.label }}</div>
+      <md-grid-tile-footer>Intérieur</md-grid-tile-footer>
+    </md-grid-tile>
+    <md-grid-tile *ngIf="outdoorTemp" class="olaf-weather-display">
+      <div class="mat-display-1">{{ outdoorTemp.label }}</div>
+      <md-grid-tile-footer>Extérieur</md-grid-tile-footer>
+    </md-grid-tile>
+    <md-grid-tile *ngIf="outdoorTemp" class="olaf-weather-display">
+      <div class="mat-display-1">{{ pressure.label }}</div>
+      <md-grid-tile-footer>Pression</md-grid-tile-footer>
+    </md-grid-tile>
+  </md-grid-list>
 
- <md-card *ngIf="tempChartOptions" class="olaf-chart">
-  <chart [options]="tempChartOptions" (load)="saveTempChart($event.context)"></chart>
-</md-card>
+  <div class="olaf-weather-chart-content">
+    <md-card *ngIf="tempChartOptions" class="olaf-weather-chart">
+      <chart [options]="tempChartOptions" (load)="saveTempChart($event.context)"></chart>
+    </md-card>
+    
+    <md-card *ngIf="pressureChartOptions" class="olaf-weather-chart">
+      <chart [options]="pressureChartOptions" (load)="savePressureChart($event.context)"></chart>
+    </md-card>
+  </div>
+</div>
 
- <md-card *ngIf="pressureChartOptions" class="olaf-chart">
-  <chart [options]="pressureChartOptions" (load)="savePressureChart($event.context)"></chart>
-</md-card>
+<div class="olaf-component-loader" [hidden]="!loading">
+  <md-spinner></md-spinner>
+</div>
+
 
