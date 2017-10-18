@@ -11,7 +11,7 @@ import { Loader } from './loader';
 })
 export class LoaderComponent implements OnInit {
 
-  public show: Boolean;
+  public show: boolean;
   private subscription: Subscription;
 
   constructor(private loaderService: LoaderService) {

@@ -37,8 +37,8 @@ export class WeatherComponent implements OnInit, OnDestroy {
   public tempChartOptions: any;
   public pressureChartOptions: any;
 
-  public loading: Boolean = true;
-  public emptyWeathers: Boolean = true;
+  public loading: boolean = true;
+  public emptyWeathers: boolean = true;
 
   constructor(public weatherService: WeatherService, public formBuilder: FormBuilder, public snackBar: MdSnackBar, public loaderService: LoaderService) {
     this.todayDate = new Date();

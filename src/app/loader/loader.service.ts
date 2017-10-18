@@ -10,7 +10,7 @@ export class LoaderService {
   public loaderState: Observable<Loader>;
 
   private loaderSubject: Subject<Loader>;
-  private _loading: Boolean;
+  private _loading: boolean;
 
   constructor() {
     this._loading = false;
@@ -34,7 +34,7 @@ export class LoaderService {
     });
   }
 
-  get loading(): Boolean {
+  get loading(): boolean {
     return this._loading;
   }
 }

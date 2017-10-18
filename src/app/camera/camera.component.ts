@@ -11,7 +11,7 @@ export class CameraComponent implements OnDestroy {
 
   @ViewChild('canvas') canvas:any; 
 
-  public loading: Boolean = true;
+  public loading: boolean = true;
 
   constructor(public datasService: DatasService) {
 
