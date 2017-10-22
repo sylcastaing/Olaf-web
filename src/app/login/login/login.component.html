@@ -1,0 +1,17 @@
+<div class="olaf-login-container">
+  <mat-card>
+    <form novalidate [formGroup]="loginForm" (submit)="login()">
+      <div class="olaf-input-content">
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email" formControlName="email"/>
+        </mat-form-field>
+      </div>
+      <div class="olaf-input-content">
+        <mat-form-field>
+          <input matInput type="password" placeholder="Mot de passe" formControlName="password"/>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary">Valider</button>
+    </form>
+  </mat-card>
+</div>

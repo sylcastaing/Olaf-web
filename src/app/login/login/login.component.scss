@@ -1,0 +1,15 @@
+.olaf-login-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  md-card {
+    width: 350px;
+    padding: 0;
+
+    form {
+      padding: 30px;
+    }
+  }
+}
