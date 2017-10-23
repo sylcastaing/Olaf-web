@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
@@ -7,6 +7,9 @@ import { AuthService } from '../../../shared/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+
+  @Output()
+  public toggleMenu = new EventEmitter<void>();
 
   constructor(public authService: AuthService) {
   }
@@ -17,4 +20,6 @@ export class HeaderComponent {
   changePassword() {
 
   }
+
+
 }

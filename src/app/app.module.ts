@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routing';
 import { LoginModule } from './login/login.module';
+import { LoaderModule } from './loader/loader.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { LoginModule } from './login/login.module';
     BrowserModule,
     OlafMaterialModule,
     SharedModule,
+    LoaderModule,
     LoginModule,
     RouterModule.forRoot(routes)
   ],

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
 
-  private _user: User = null;
+  private _user: User;
 
   /**
    * Constructor
@@ -19,6 +19,7 @@ export class AuthService {
               public userService: UserService) {
 
     this._user = null;
+    this.loadUser();
   }
 
   /**

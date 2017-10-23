@@ -1,3 +1,10 @@
-<app-header></app-header>
-<app-nav></app-nav>
-<router-outlet></router-outlet>
+<app-header (toggleMenu)="sidenav.toggle()"></app-header>
+<div class="app-content">
+  <mat-sidenav-container *ngIf="authService.isAuthenticated()">
+    <mat-sidenav #sidenav mode="side" opened="true"><app-nav></app-nav></mat-sidenav>
+  </mat-sidenav-container>
+  <div class="router-content">
+    <app-loader></app-loader>
+    <router-outlet></router-outlet>
+  </div>
+</div>

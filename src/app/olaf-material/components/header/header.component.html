@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button [hidden]="!authService.isAuthenticated()" class="menu-button" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+  <button mat-icon-button [hidden]="!authService.isAuthenticated()" class="menu-button" (click)="toggleMenu.emit()"><mat-icon>menu</mat-icon></button>
   <span>Olaf</span>
-  <span class="spacer"></span>
+  <span class="header-spacer"></span>
   <span *ngIf="authService.user">{{ authService.user.name }}</span>
-  <button mat-icon-button [hidden]="!authService.isAuthenticated()" txtright>
+  <button mat-icon-button [hidden]="!authService.isAuthenticated()" [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">

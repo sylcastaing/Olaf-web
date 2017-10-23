@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { LoaderService } from '../../loader/services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private loaderService: LoaderService) {
   }
 
   ngOnInit() {
@@ -29,11 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loaderService.show();
+
     this.authService.login(this.loginForm.value)
       .subscribe(() => {
         this.router.navigate(['/']);
       }, error => {
         this.showError(error);
+      }, () => {
+        this.loaderService.hide();
       });
   }
 

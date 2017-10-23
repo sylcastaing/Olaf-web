@@ -3,16 +3,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import {
   MatButtonModule,
-  MatCardModule, MatIconModule, MatInputModule, MatMenuModule, MatSnackBarModule,
+  MatCardModule, MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { NavComponent } from './components/nav/nav.component';
 import { NavElementComponent } from './components/nav/nav-element/nav-element.component';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     RouterModule,
     SharedModule,
     BrowserAnimationsModule,
@@ -21,6 +23,7 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatProgressBarModule,
     MatSnackBarModule,
     MatToolbarModule
   ],
@@ -37,6 +40,7 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatProgressBarModule,
     MatSnackBarModule,
     MatToolbarModule
   ]
