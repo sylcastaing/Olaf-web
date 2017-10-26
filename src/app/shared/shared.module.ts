@@ -6,6 +6,8 @@ import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   imports: [
@@ -19,7 +21,9 @@ import { HttpModule } from '@angular/http';
     AuthService,
     DataService,
     HttpService,
-    UserService
+    UserService,
+    AuthGuard,
+    AdminGuard
   ],
   exports: [
     FormsModule,

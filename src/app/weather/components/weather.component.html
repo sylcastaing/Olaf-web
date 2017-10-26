@@ -1,0 +1,43 @@
+<div [hidden]="loading">
+  <mat-grid-list cols="3" rowHeight="16:9" class="olaf-weather-content" gutterSize="20px">
+    <mat-grid-tile *ngIf="indoorTemp" class="olaf-weather-display">
+      <div class="olaf-weather-display-title">{{ indoorTemp.label }}</div>
+      <mat-grid-tile-footer>Intérieur</mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="outdoorTemp" class="olaf-weather-display">
+      <div class="olaf-weather-display-title">{{ outdoorTemp.label }}</div>
+      <mat-grid-tile-footer>Extérieur</mat-grid-tile-footer>
+    </mat-grid-tile>
+    <mat-grid-tile *ngIf="outdoorTemp" class="olaf-weather-display">
+      <div class="olaf-weather-display-title">{{ pressure.label }}</div>
+      <mat-grid-tile-footer>Pression</mat-grid-tile-footer>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-card class="olaf-weather-dates-content">
+    <form [formGroup]="datesForm">
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerStart" formControlName="startDate" [max]="todayDate" placeholder="Date de début">
+        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStart></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="pickerEnd" formControlName="endDate" [max]="todayDate" placeholder="Date de fin">
+        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="!datesForm.valid" (click)="searchWeather()">Valider</button>
+    </form>
+  </mat-card>
+
+  <div class="olaf-weather-chart-content" [hidden]="emptyWeathers">
+    <app-weather-chart [chartOptions]="tempChartOptions" (saveChart)="saveTempChart($event)"></app-weather-chart>
+    <app-weather-chart [chartOptions]="pressureChartOptions" (saveChart)="savePressureChart($event)"></app-weather-chart>
+  </div>
+</div>
+
+<div class="olaf-component-loader" [hidden]="!loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+

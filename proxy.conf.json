@@ -1,14 +1,14 @@
 {
   "/api": {
-    "target": "http://127.0.0.1:8080/",
+    "target": "https://olafcore.sylvain-castaing.fr/",
     "secure": false
   },
   "/auth": {
-    "target": "http://127.0.0.1:8080/",
+    "target": "https://olafcore.sylvain-castaing.fr/",
     "secure": false
   },
   "/socket.io": {
-    "target": "http://127.0.0.1:8080/",
+    "target": "https://olafcore.sylvain-castaing.fr/",
     "secure": false
   }
 }

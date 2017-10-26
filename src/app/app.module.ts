@@ -1,7 +1,7 @@
 import './rxjs-operators';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OlafMaterialModule } from './olaf-material/olaf-material.module';
@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routing';
 import { LoginModule } from './login/login.module';
 import { LoaderModule } from './loader/loader.module';
+import { WeatherModule } from './weather/weather.module';
 
 
 @NgModule({
@@ -19,12 +20,18 @@ import { LoaderModule } from './loader/loader.module';
     SharedModule,
     LoaderModule,
     LoginModule,
+    WeatherModule,
     RouterModule.forRoot(routes)
   ],
   declarations: [
     AppComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'
+    }
+  ],
   bootstrap: [
     AppComponent
   ]

@@ -27,7 +27,6 @@ export class User {
       this.password = user.password;
       this.role = user.role;
     }
-
   }
 
   /**

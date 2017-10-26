@@ -1,0 +1,3 @@
+<mat-card *ngIf="chartOptions" class="olaf-weather-chart">
+  <chart [options]="chartOptions" (load)="saveChart.emit($event.context)"></chart>
+</mat-card>
