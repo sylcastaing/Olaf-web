@@ -1,1 +1,13 @@
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
+  mat-card {
+    border-radius: 0px;
+  }
+
+  :last-child {
+    flex: 2;
+  }
+}

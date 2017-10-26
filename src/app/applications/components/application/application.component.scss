@@ -1,0 +1,32 @@
+a {
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 10px;
+
+  mat-card {
+    display: inline-block;
+    width: 160px;
+    margin: 10px;
+
+    mat-card-header {
+      display: block;
+
+      mat-card-title {
+        text-decoration: none;
+      }
+    }
+
+    .img-content {
+      padding: 0 10px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+  }
+
+  mat-card:hover {
+    background-color: #f6f6f6;
+  }
+}

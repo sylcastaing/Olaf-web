@@ -18,9 +18,6 @@ import { WeatherChartComponent } from './components/weather-chart/weather-chart.
   ],
   providers: [
     WeatherService
-  ],
-  exports: [
-    WeatherComponent
   ]
 })
 export class WeatherModule {

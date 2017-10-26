@@ -11,6 +11,7 @@ import { routes } from './app.routing';
 import { LoginModule } from './login/login.module';
 import { LoaderModule } from './loader/loader.module';
 import { WeatherModule } from './weather/weather.module';
+import { ApplicationsModule } from './applications/applications.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { WeatherModule } from './weather/weather.module';
     LoaderModule,
     LoginModule,
     WeatherModule,
+    ApplicationsModule,
     RouterModule.forRoot(routes)
   ],
   declarations: [
