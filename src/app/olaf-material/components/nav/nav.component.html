@@ -1,12 +1,12 @@
 <div class="nav-container">
   <mat-card>
     <app-nav-element title="Météo" icon="wb_sunny" link="/"></app-nav-element>
-    <app-nav-element title="Caméra" icon="linked_camera" link="/"></app-nav-element>
-    <app-nav-element title="Applications" icon="apps" link="/"></app-nav-element>
+    <app-nav-element title="Caméra" icon="linked_camera" link="/camera"></app-nav-element>
+    <app-nav-element title="Applications" icon="apps" link="/apps"></app-nav-element>
   </mat-card>
   <mat-card *ngIf="authService.isAdmin()">
     <mat-card-subtitle>Administration</mat-card-subtitle>
-    <app-nav-element title="Utilisateurs" icon="account_box" link="/"></app-nav-element>
+    <app-nav-element title="Utilisateurs" icon="account_box" link="/admin/users"></app-nav-element>
   </mat-card>
   <mat-card></mat-card>
 </div>

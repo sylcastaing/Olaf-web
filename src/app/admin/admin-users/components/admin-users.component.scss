@@ -1,0 +1,29 @@
+.olaf-users-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-card {
+    margin-top: 50px;
+    min-width: 50%;
+  }
+  mat-list-item {
+    cursor: pointer;
+  }
+
+  mat-list-item:hover {
+    background-color: #f6f6f6;
+  }
+}
+
+.olaf-add-user {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+.olaf-addUser-dialog {
+  min-width: 500px;
+}
+
+
+

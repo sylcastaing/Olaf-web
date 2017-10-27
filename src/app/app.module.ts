@@ -12,16 +12,20 @@ import { LoginModule } from './login/login.module';
 import { LoaderModule } from './loader/loader.module';
 import { WeatherModule } from './weather/weather.module';
 import { ApplicationsModule } from './applications/applications.module';
+import { CameraModule } from './camera/camera.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     OlafMaterialModule,
     SharedModule,
     LoaderModule,
     LoginModule,
     WeatherModule,
+    CameraModule,
     ApplicationsModule,
     RouterModule.forRoot(routes)
   ],

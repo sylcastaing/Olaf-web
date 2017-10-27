@@ -3,11 +3,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/header/header.component';
 import {
   MatButtonModule,
-  MatCardModule, MatDatepickerModule, MatGridListModule, MatIconModule, MatInputModule, MatMenuModule,
+  MatCardModule, MatDatepickerModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
   MatNativeDateModule,
-  MatProgressBarModule,
+  MatProgressBarModule, MatProgressSpinnerModule,
   MatSnackBarModule,
-  MatToolbarModule
+  MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { NavComponent } from './components/nav/nav.component';
@@ -23,18 +23,20 @@ import { chartFactory } from './factories/chart.factory';
     CommonModule,
     RouterModule,
     SharedModule,
-    BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatMenuModule,
     MatNativeDateModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatTooltipModule,
     ChartModule
   ],
   declarations: [
@@ -57,11 +59,14 @@ import { chartFactory } from './factories/chart.factory';
     MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatMenuModule,
     MatNativeDateModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatTooltipModule,
     ChartModule
   ]
 })

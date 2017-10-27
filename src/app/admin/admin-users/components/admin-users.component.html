@@ -1,0 +1,20 @@
+<div class="olaf-users-container" *ngIf="users">
+  <mat-card>
+    <mat-list>
+      <h3 mat-subheader>Utilisateurs</h3>
+      <mat-list-item *ngFor="let user of users">
+        <mat-icon *ngIf="!user.isAdmin" mat-list-icon [matTooltip]="user.roleLabel">account_box</mat-icon>
+        <mat-icon *ngIf="user.isAdmin" mat-list-icon [matTooltip]="user.roleLabel">supervisor_account</mat-icon>
+        <h4 mat-line>{{ user.name }}</h4>
+        <p mat-line>{{ user.email }}</p>
+        <button mat-icon-button matTooltip="Supprimer" (click)="deleteUser(user)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>
+
+<button mat-fab class="olaf-add-user" (click)="addUser()">
+  <mat-icon>add</mat-icon>
+</button>
