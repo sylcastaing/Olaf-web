@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       }, error => {
         this.showError(error);
+        this.loaderService.hide();
       }, () => {
         this.loaderService.hide();
       });

@@ -2,6 +2,7 @@
 
 html {
   height: 100%;
+  overflow: hidden;
 
   body {
     height: 100%;
@@ -11,6 +12,10 @@ html {
       display: flex;
       flex-direction: column;
       height: 100%;
+
+      .router-content {
+        overflow: auto;
+      }
     }
   }
 }
@@ -19,7 +24,7 @@ html {
   display: none !important;
 }
 
-.txtcenter {
+.txt-center {
   text-align: center;
 }
 

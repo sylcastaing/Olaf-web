@@ -2,7 +2,7 @@
   <mat-card>
     <mat-list>
       <h3 mat-subheader>Utilisateurs</h3>
-      <mat-list-item *ngFor="let user of users">
+      <mat-list-item *ngFor="let user of users" [routerLink]="['/admin/users', user._id]">
         <mat-icon *ngIf="!user.isAdmin" mat-list-icon [matTooltip]="user.roleLabel">account_box</mat-icon>
         <mat-icon *ngIf="user.isAdmin" mat-list-icon [matTooltip]="user.roleLabel">supervisor_account</mat-icon>
         <h4 mat-line>{{ user.name }}</h4>
@@ -15,6 +15,6 @@
   </mat-card>
 </div>
 
-<button mat-fab class="olaf-add-user" (click)="addUser()">
+<button mat-fab class="olaf-add-user" [routerLink]="['/admin/users/new']">
   <mat-icon>add</mat-icon>
 </button>

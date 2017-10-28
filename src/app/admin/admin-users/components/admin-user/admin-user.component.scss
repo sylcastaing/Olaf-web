@@ -1,0 +1,31 @@
+.olaf-user-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  mat-card {
+    width: 50%;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 0;
+
+    mat-card-title {
+      margin: 0;
+      padding: 30px 30px 10px 20px;
+      text-align: center;
+    }
+
+    form {
+      padding: 0 30px 30px 30px;
+
+      mat-form-field {
+        width: 100%;
+      }
+
+      :last-child {
+        margin-top: 20px;
+      }
+    }
+  }
+}

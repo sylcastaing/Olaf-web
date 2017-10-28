@@ -10,6 +10,8 @@ import { routes } from './admin.routing';
     AdminUsersModule,
     RouterModule.forChild(routes)
   ],
-  declarations: []
+  exports: [
+    RouterModule
+  ]
 })
 export class AdminModule { }

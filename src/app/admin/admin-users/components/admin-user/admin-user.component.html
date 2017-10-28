@@ -1,0 +1,33 @@
+<div class="olaf-user-container" *ngIf="user && userForm">
+  <mat-card>
+    <mat-card-title class="subheading-2">
+      {{ isNewUser ? 'Ajouter un utilisateur' : 'Modifier un utilisateur' }}
+    </mat-card-title>
+    <form [formGroup]="userForm" (submit)="save()" novalidate>
+      <div class="olaf-input-content">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Nom" formControlName="name"/>
+        </mat-form-field>
+      </div>
+      <div class="olaf-input-content">
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email" formControlName="email"/>
+        </mat-form-field>
+      </div>
+      <div class="olaf-input-content">
+        <mat-form-field>
+          <input matInput type="password" placeholder="Mot de passe" formControlName="password"/>
+        </mat-form-field>
+      </div>
+      <div class="olaf-input-content">
+        <mat-select placeholder="Role" formControlName="role">
+          <mat-option value="user">Utilisateur</mat-option>
+          <mat-option value="admin">Administrateur</mat-option>
+        </mat-select>
+      </div>
+      <div class="olaf-input-content txt-center">
+        <button mat-raised-button color="primary" [disabled]="userForm.invalid">Enregistrer</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

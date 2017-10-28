@@ -29,6 +29,19 @@ export class UserService extends DataService {
   }
 
   /**
+   * Get user by id
+   *
+   * @param {string} id
+   * @returns {Observable<User>}
+   */
+  public get(id: string): Observable<User> {
+    return this.http.get('/api/users/' + id, true)
+      .map(this.extractData)
+      .map(data => new User(data))
+      .catch(this.handleError);
+  }
+
+  /**
    * Crate a new user
    *
    * @param user

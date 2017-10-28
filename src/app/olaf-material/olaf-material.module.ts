@@ -5,7 +5,7 @@ import {
   MatButtonModule,
   MatCardModule, MatDatepickerModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
   MatNativeDateModule,
-  MatProgressBarModule, MatProgressSpinnerModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule,
   MatSnackBarModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
@@ -34,6 +34,7 @@ import { chartFactory } from './factories/chart.factory';
     MatNativeDateModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTooltipModule,
@@ -64,6 +65,7 @@ import { chartFactory } from './factories/chart.factory';
     MatNativeDateModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatSnackBarModule,
     MatToolbarModule,
     MatTooltipModule,

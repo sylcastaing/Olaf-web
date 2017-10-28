@@ -11,8 +11,8 @@
           <input matInput type="password" placeholder="Mot de passe" formControlName="password"/>
         </mat-form-field>
       </div>
-      <div class="olaf-input-content txtcenter">
-        <button mat-raised-button color="primary">Valider</button>
+      <div class="olaf-input-content txt-center">
+        <button mat-raised-button color="primary" [disabled]="loginForm.invalid">Valider</button>
       </div>
     </form>
   </mat-card>

@@ -21,10 +21,19 @@ export class AdminUsersComponent implements OnInit {
     this.getUsers();
   }
 
+  /**
+   * Delete a user
+   *
+   * @param {User} user
+   */
   deleteUser(user: User) {
-
+    this.userService.remove(user)
+      .subscribe(() => this.getUsers());
   }
 
+  /**
+   * Get all users
+   */
   private getUsers() {
     this.loaderService.show();
 
